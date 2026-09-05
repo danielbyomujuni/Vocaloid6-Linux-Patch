@@ -2,6 +2,10 @@
 
 Catppuccin restyle for **VOCALOID 6** dialogs when running under Wine.
 
+| Before | After |
+|:---:|:---:|
+| ![Add Track dialog with stock flat-light controls](docs/before.png) | ![Add Track dialog restyled by the patch](docs/after.png) |
+
 VOCALOID 6's dialog windows (Add Track, etc.) use flat, light Win32-style
 control templates hardcoded into `VOCALOID6.dll` (`DialogFlatButton`,
 `DialogFlatComboBox`, `DialogRadioButton`, dotted focus rectangles, `#0078D7`
