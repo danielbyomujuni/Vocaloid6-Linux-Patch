@@ -1,0 +1,17 @@
+post_install() {
+    echo ":: To activate the VOCALOID 6 dialog restyle, run (as your user):"
+    echo "::   vocaloid6-ui-patch apply"
+    echo ":: It registers a .NET startup hook in your wine prefix"
+    echo ":: (\$WINEPREFIX or ~/.wine). Undo with: vocaloid6-ui-patch remove"
+}
+
+post_upgrade() {
+    echo ":: If the patch is active in a prefix, refresh the deployed shim with:"
+    echo "::   vocaloid6-ui-patch apply"
+}
+
+pre_remove() {
+    echo ":: The package files are removed, but hooks registered in wine prefixes"
+    echo ":: remain. Run 'vocaloid6-ui-patch remove' before uninstalling, or"
+    echo ":: delete the DOTNET_STARTUP_HOOKS value from HKCU\\Environment manually."
+}

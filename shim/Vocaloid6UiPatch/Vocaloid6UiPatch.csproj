@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Startup-hook shim: plain net8.0 (no WindowsDesktop SDK needed — the styles
+       XAML is an embedded resource parsed at runtime with XamlReader, never
+       markup-compiled). WPF types are compiled against reference assemblies in
+       $(WpfRefDir); at runtime they resolve from the host app's own
+       Microsoft.WindowsDesktop.App shared framework inside the wine prefix.
+
+       WpfRefDir: point at either the unpacked Microsoft.WindowsDesktop.App.Ref
+       nupkg's ref/net8.0 directory (what the PKGBUILD does), or a wine prefix's
+       .../dotnet/shared/Microsoft.WindowsDesktop.App/<version> (local dev). -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>Vocaloid6UiPatch</AssemblyName>
+    <RootNamespace>Vocaloid6UiPatch</RootNamespace>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <Version>1.0.0</Version>
+    <WpfRefDir Condition="'$(WpfRefDir)' == ''">$(HOME)/.wine/drive_c/Program Files/dotnet/shared/Microsoft.WindowsDesktop.App/8.0.12</WpfRefDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="StartupHook.cs" />
+    <Compile Include="Patch.cs" />
+    <EmbeddedResource Include="Styles.xaml" LogicalName="Vocaloid6UiPatch.Styles.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="WindowsBase">
+      <HintPath>$(WpfRefDir)/WindowsBase.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <HintPath>$(WpfRefDir)/PresentationCore.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <HintPath>$(WpfRefDir)/PresentationFramework.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="System.Xaml">
+      <HintPath>$(WpfRefDir)/System.Xaml.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>
