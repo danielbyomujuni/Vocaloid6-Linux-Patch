@@ -176,10 +176,18 @@ public static class Patch
 
         // The app sets Foreground locally on many dialog elements (its brushes
         // assume the light flat styles), and local values beat style setters —
-        // flip dark ones to white on text-bearing controls.
-        if (element is Label or System.Windows.Controls.Primitives.ToggleButton &&
-            element is Control control && IsDark(control.Foreground))
+        // flip dark ones to white on text-bearing controls. For text boxes the
+        // dark foreground makes typed text invisible on the dark field, so the
+        // caret is forced white too.
+        if (element is Control control &&
+            (element is Label ||
+             element is System.Windows.Controls.Primitives.ToggleButton ||
+             element is TextBox) &&
+            IsDark(control.Foreground))
+        {
             control.Foreground = s_white;
+            if (element is TextBox box) box.CaretBrush = s_white;
+        }
     }
 
     // The Track Count / Part Duration up-down arrows are ~16px app-templated
