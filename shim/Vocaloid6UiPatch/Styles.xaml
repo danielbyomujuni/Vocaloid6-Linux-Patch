@@ -32,6 +32,44 @@
     </Setter>
   </Style>
 
+  <!-- ==== Spinner (up/down) mini button ==== -->
+  <Style x:Key="V6.SpinnerButton" TargetType="{x:Type Button}">
+    <Setter Property="Background" Value="{StaticResource V6.Control.Bg}" />
+    <Setter Property="BorderBrush" Value="{StaticResource V6.Border}" />
+    <Setter Property="Foreground" Value="#ffffff" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="0" />
+    <!-- The theme style (PresentationFramework.Gtk) supplies MinHeight=30 for
+         properties an explicit style leaves unset; without these the template
+         root outgrows the ~12px button and the glyph centers into the clip. -->
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Button}">
+          <Border x:Name="bd" Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="3" SnapsToDevicePixels="True">
+            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter TargetName="bd" Property="Background" Value="{StaticResource V6.Control.Hover}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter TargetName="bd" Property="Background" Value="{StaticResource V6.Control.Pressed}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter TargetName="bd" Property="Opacity" Value="0.5" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
   <!-- ==== Button ==== -->
   <Style x:Key="{x:Type Button}" TargetType="{x:Type Button}">
     <Setter Property="Background" Value="{StaticResource V6.Control.Bg}" />
@@ -146,7 +184,7 @@
     <Setter Property="BorderBrush" Value="{StaticResource V6.Border}" />
     <Setter Property="Foreground" Value="{StaticResource V6.Text}" />
     <Setter Property="BorderThickness" Value="1" />
-    <Setter Property="Padding" Value="10,5" />
+    <Setter Property="Padding" Value="10,0" />
     <Setter Property="MinHeight" Value="30" />
     <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
     <Setter Property="FocusVisualStyle" Value="{StaticResource V6.FocusVisual}" />
@@ -207,7 +245,7 @@
 
   <!-- ==== RadioButton ==== -->
   <Style x:Key="{x:Type RadioButton}" TargetType="{x:Type RadioButton}">
-    <Setter Property="Foreground" Value="{StaticResource V6.Text.Muted}" />
+    <Setter Property="Foreground" Value="#ffffff" />
     <Setter Property="FocusVisualStyle" Value="{x:Null}" />
     <Setter Property="Template">
       <Setter.Value>
@@ -226,7 +264,6 @@
             <Trigger Property="IsChecked" Value="True">
               <Setter TargetName="dot" Property="Visibility" Value="Visible" />
               <Setter TargetName="ring" Property="Stroke" Value="{StaticResource V6.Accent}" />
-              <Setter Property="Foreground" Value="{StaticResource V6.Text}" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
               <Setter TargetName="ring" Property="Stroke" Value="{StaticResource V6.Accent.Hover}" />
@@ -279,7 +316,7 @@
 
   <!-- ==== Label / ToolTip / ListBox ==== -->
   <Style x:Key="{x:Type Label}" TargetType="{x:Type Label}">
-    <Setter Property="Foreground" Value="{StaticResource V6.Text.Muted}" />
+    <Setter Property="Foreground" Value="#ffffff" />
     <Setter Property="Padding" Value="0" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="Template">
